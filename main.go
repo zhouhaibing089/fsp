@@ -29,7 +29,7 @@ func main() {
 
 	upstream := httputil.NewSingleHostReverseProxy(target)
 	http.ListenAndServeTLS(":443", cert, key, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		httputil.DumpRequest(r, false)
+		log.Printf("%s %s", r.Method, r.RequestURI)
 		upstream.ServeHTTP(w, r)
 	}))
 }
